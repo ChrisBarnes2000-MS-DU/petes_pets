@@ -1,33 +1,42 @@
 extends layout
 
 block content
-    
     .row.justify-content-center
         .col-sm-6
-            legend New Pet
+            legend Edit Pet
             form(action=`/pets/${pet._id}?_method=PUT`, method="POST")
                 .form-group
                     label Name
                     input.form-control(name="name" value=pet.name)
                 .form-group
                     label Birthday
-                    input.form-control(name="birthday" value=pet.birthday)   
+                    input.form-control(name="birthday" value=pet.birthday)
                 .form-group
                     label Species
-                    input.form-control(name="species" value=pet.species)    
+                    input.form-control(name="species" value=pet.species)
                 .form-group
                     label Rectangular Image URL
-                    input.form-control(name="picUrl" value=pet.picUrl) 
+                    input.form-control(name="picUrl" value=pet.picUrl)
                 .form-group
                     label Square Image URL
                     input.form-control(name="picUrlSq" value=pet.picUrlSq) 
                 .form-group
                     label Favorite Food
-                    input.form-control(name="favoriteFood" value=pet.favoriteFood)    
+                    input.form-control(name="favoriteFood" value=pet.favoriteFood)
                 .form-group
                     label Description
-                    textarea.form-control(name="description")= pet.description
+                    textarea.form-control(name="description")=pet.description
+                .form-group
+                    label Price*
+                    textarea.form-control(name="price" type="number")=pet.price
+                .form-group
+                    label Purchased
+                    input.form-control(name="purchasedAt" id="purchasedAt" value=pet.purchasedAt)
+                    button(id="time") time
+
+                button(type="cancel").btn.btn-warning cancel
                 button(type="submit").btn.btn-primary Save
+
             .text-right
                 form(action=`/pets/${pet._id}?_method=DELETE`, method="POST")
                     button(type="submit").btn.btn-danger Remove

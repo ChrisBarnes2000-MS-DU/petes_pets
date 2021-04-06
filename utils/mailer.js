@@ -15,13 +15,6 @@ const auth = {
 // create a mailer
 const nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
-// SEND EMAIL
-const user = {
-  email: "chris.barnes.2000@me.com",
-  name: "Chris Barnes",
-  age: "20",
-};
-
 // export our send mail function
 module.exports.sendMail = (user, req, res) => {
   // send an email to the user's email with a provided template
@@ -41,35 +34,34 @@ module.exports.sendMail = (user, req, res) => {
       console.log("Response: " + info);
       res.redirect(`/pets/${req.params.id}`);
     })
-    // Catch error and redirect to the purchased pet's page
+    // Catch error and redirect to the pet's page
     .catch((err) => {
       console.log("Error: " + err);
       res.redirect(`/pets/${req.params.id}`);
     });
 };
 
-
-// const mailgun = require("mailgun-js");
-// const DOMAIN = process.env.EMAIL_DOMAIN || "mg.chrisbarnes.work";
-// const APIKEY = process.env.MAILGUN_API_KEY;
-// const mg = mailgun({ apiKey: APIKEY, domain: DOMAIN });
-// const data = {
-//   from: "Petes Pets <postmaster@mg.chrisbarnes.work>",
-//   to: "chris.barnes.2000@me.com",
-//   subject: "Hello",
-//   template: "test",
-//   "h:X-Mailgun-Variables": { test: "test" },
-//   //   template: {
-//   //   name: "test_name",
-//   //   age: "test_age",
-//   //     name: "email.handlebars",
-//   //     engine: "handlebars",
-//   //     context: user,
-//   //   },
-// };
-// mg.messages().send(data, function (error, body) {
-//   if (error) {
-//     console.error;
-//   }
-//   console.log(body);
-// });
+module.exports.sendDeleted_Pet_Mail = (context, res) => {
+  // send an email to the user's email with a provided template
+  nodemailerMailgun
+    .sendMail({
+      from: "no-reply@example.com",
+      to: context.user.email, // An array if you have multiple recipients.
+      subject: "[WARNING]!! Someone Deleted a Pet From the website!",
+      template: {
+        name: "deleted_pet_email.hbs",
+        engine: "handlebars",
+        context: context,
+      },
+    })
+    // One mail is sent, redirect to the purchased pet's page
+    .then((info) => {
+      console.log("Response: " + info);
+      res.redirect("/");
+    })
+    // Catch error and redirect to the pet's page
+    .catch((err) => {
+      console.log("Error: " + err);
+      res.redirect("/");
+    });
+};

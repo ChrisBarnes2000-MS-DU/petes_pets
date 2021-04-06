@@ -18,12 +18,13 @@ const PetSchema = new Schema(
     picUrlSq: { type: String, required: true },
     favoriteFood: { type: String, required: true },
     description: { type: String, minlength: 140, required: true },
+    price: { type: Number, default: 0.0, required: true },
+    purchasedAt: { type: String, default: null, required: true },
   },
   {
     timestamps: true,
   }
 );
-
 
 PetSchema.plugin(mongoosePaginate);
 

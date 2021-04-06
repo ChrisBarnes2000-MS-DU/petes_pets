@@ -25,3 +25,8 @@ if (document.querySelector("#new-pet")) {
       });
   });
 }
+
+$("#time").click(function () {
+  var time = new Date();
+  $("#purchasedAt").val(time.toDateString());
+});

@@ -1,6 +1,8 @@
 // MODELS
 const Pet = require("../models/pet");
 
+const purchaser = require("../utils/purchaser");
+
 // PET ROUTES
 module.exports = (app) => {
   // INDEX PET => index.js
@@ -67,13 +69,43 @@ module.exports = (app) => {
       })
       .catch((err) => {
         // Handle Errors
+        console.log("Error: " + err);
       });
   });
 
   // DELETE PET
   app.delete("/pets/:id", (req, res) => {
     Pet.findByIdAndRemove(req.params.id).exec((err, pet) => {
-      return res.redirect("/");
+      if (err) {
+        console.log("Error: " + err);
+      }
+      const context = {
+        user: {
+          name: "Chris Barnes",
+          email: "Chris.Barnes.2000@me.com",
+        },
+        pet: pet,
+      };
+
+      // Call our mail handler to manage sending emails
+      mailer.sendDelete_Pet_Mail(context, res);
+    });
+  });
+
+  // PURCHASE PET
+  app.put("/pets/:id/purchase", (req, res) => {
+    console.log(req.body);
+    // req.body.petId can become null through seeding,
+    // this way we'll insure we use a non-null value
+    let petId = req.body.petId || req.params.id;
+
+    Pet.findById(petId).exec((err, pet) => {
+      if (err) {
+        console.log("Error Finding Pet For Purchase: " + err);
+        res.redirect(`/`);
+      } else {
+        purchaser.purchasePet(pet, req, res);
+      }
     });
   });
 };

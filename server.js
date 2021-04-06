@@ -25,7 +25,7 @@ app.set("view engine", "pug");
 app.use(methodOverride("_method"));
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -52,5 +52,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("error");
 });
+
+app.locals.PUBLIC_STRIPE_TEST_API_KEY = process.env.PUBLIC_STRIPE_TEST_API_KEY;
 
 module.exports = app;
