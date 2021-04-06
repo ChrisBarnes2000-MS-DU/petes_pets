@@ -1,4 +1,4 @@
-const Pet = require('../models/pet');
+const Pet = require("../models/pet");
 
 module.exports = (app) => {
   /* GET home page. */
@@ -9,4 +9,4 @@ module.exports = (app) => {
       res.render("pets-index", { pets: results.docs, pagesCount: results.pages, currentPage: page });
     });
   });
-}
+};
