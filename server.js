@@ -1,6 +1,6 @@
 if (!process.env.PORT) {
   require("dotenv").config();
-  process.env.NODE_ENV = "dev";
+  process.env.NODE_ENV = "development";
 }
 
 const express = require("express");
@@ -15,7 +15,7 @@ const app = express();
 
 const mongoose = require("mongoose");
 const mongoConnectionString = "mongodb://localhost/petes-pets";
-mongoose.connect(mongoConnectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoConnectionString, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -25,7 +25,7 @@ app.set("view engine", "pug");
 app.use(methodOverride("_method"));
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

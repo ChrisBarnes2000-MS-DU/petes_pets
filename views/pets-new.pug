@@ -1,34 +1,31 @@
 extends layout
 
 block content
-    
-  .row.justify-content-center
-    .col-sm-6
-      legend New Pet
-      form(action="#", id="new-pet", method="post")
-        .form-group
-            label Name*
-            input.form-control(name="name" required)
-        .form-group
-            label Birthday*
-            input.form-control(name="birthday" required)
-        .form-group
-            label Species*
-            input.form-control(name="species" required)
-        .form-group
-            label Rectangular Image URL*
-            input.form-control(name="picUrl" required type="url")
-        .form-group
-            label Square Image URL*
-            input.form-control(name="picUrlSq" required type="url")
-        .form-group
-            label Favorite Food*
-            input.form-control(name="favoriteFood" required)
-        .form-group
-            label Description*
-            textarea.form-control(name="description" required minlength="140")
-        .form-group
-            label Price*
-            textarea.form-control(name="price" required type="number")
-        button(type="cancel").btn.btn-warning cancel
-        button(type="submit").btn.btn-primary Save
+
+    .row.justify-content-center
+        .col-sm-6
+            legend New Pet
+            form(action="#" id="new-pet" method="post")
+                .form-group
+                    label Name*
+                    input.form-control(name="name" type="text" required)
+                .form-group
+                    label Birthday*
+                    input.form-control(name="birthday" type="datetime-local" required id="date" min="2000-01-01T00:00")
+                .form-group
+                    label Species*
+                    input.form-control(name="species" type="text" required)
+                .form-group
+                    label Avatar*
+                    input.form-control(name="avatar" type="file" required)
+                .form-group
+                    label Favorite Food*
+                    input.form-control(name="favoriteFood" type="text" required)
+                .form-group
+                    label Description*
+                    textarea.form-control(name="description" type="text" required minlength="40")
+                .form-group
+                    label Price*
+                    input.form-control(name="price" type="number" step="0.01" required)
+                button(type="cancel").btn.btn-warning cancel
+                button(type="submit").btn.btn-primary Save

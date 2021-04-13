@@ -41,7 +41,7 @@ module.exports.sendMail = (user, req, res) => {
     });
 };
 
-module.exports.sendDeleted_Pet_Mail = (context, res) => {
+module.exports.sendDelete_Pet_Mail = (context, res) => {
   // send an email to the user's email with a provided template
   nodemailerMailgun
     .sendMail({
